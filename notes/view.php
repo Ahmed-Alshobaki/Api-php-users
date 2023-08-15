@@ -3,8 +3,8 @@ include "../connect.php";
 include "../zon.php";
 $id = filterRequest("id");
 $stsm = $con->prepare("SELECT * FROM notes WHERE iduser = ? ");
-$stsm->execute(array( $id));
-$data = $stsm->fetch(PDO::FETCH_ASSOC);
+$stsm->execute(array($id));
+$data = $stsm->fetchAll(PDO::FETCH_ASSOC);
 $count = $stsm->rowCount();
 if ($count > 0) {
     // نجاح تسجيل الدخول
