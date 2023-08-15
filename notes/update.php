@@ -4,8 +4,14 @@ include "../zon.php";
 $title= filterRequest("title");
 $idbody= filterRequest("body");
 $id  = filterRequest("id");
-$stsm = $con->prepare("UPDATE `notes` SET `title`=?,`body`=? WHERE id=?");
-$stsm->execute(array($title, $idbody , $id ));
+$nameimage  = filterRequest("nameimage");
+
+if (isset($_FILES["file"])){
+    deletefile("../upload");
+    $nameimage = imageUpload($nameimage);
+}
+$stsm = $con->prepare("UPDATE `notes` SET `title`=?,`body`=? ,`noteimage`=? WHERE id=?");
+$stsm->execute(array($title, $idbody ,$nameimage , $id ));
 
 $count = $stsm->rowCount();
 if ($count > 0) {
